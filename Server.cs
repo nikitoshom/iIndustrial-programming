@@ -9,6 +9,8 @@ namespace serverChat
     public static class Server
     {
         public static List<Client> Clients = new List<Client>();
+
+        //  вход пользователя на сервер
         public static void NewClient(Socket handle)
         {
             try
@@ -29,6 +31,8 @@ namespace serverChat
             }
             catch (Exception exp) { Console.WriteLine("Error with endClient: {0}.",exp.Message); }
         }
+
+        // потвержэение обновления данных чата
         public static void UpdateAllChats()
         {
             try
