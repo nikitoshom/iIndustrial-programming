@@ -20,6 +20,8 @@ namespace serverChat
                 data = msg;
             }
         }
+
+        // фиксация сообщений
         public static void AddMessage(string userName,string msg)
         {
             try
@@ -38,6 +40,9 @@ namespace serverChat
         {
             Chat.Clear();
         }
+
+        //подключение чата к серверу
+
         public static string GetChat()
         {
             try

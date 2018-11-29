@@ -13,6 +13,7 @@ namespace serverChat
         private const string _serverHost = "localhost";
         private const int _serverPort = 9933;
         private static Thread _serverThread;
+        // Main))
         static void Main(string[] args)
         {
             _serverThread = new Thread(startServer);
@@ -21,6 +22,9 @@ namespace serverChat
             while (true)
                 handlerCommands(Console.ReadLine());
         }
+
+        // подтверждение входа пользователя
+    
         private static void handlerCommands(string cmd)
         {
             cmd = cmd.ToLower();
@@ -33,6 +37,8 @@ namespace serverChat
                 }
             }
         }
+
+        // запуск сервера
         private static void startServer()
         {
             IPHostEntry ipHost = Dns.GetHostEntry(_serverHost);

@@ -12,6 +12,7 @@ namespace serverChat
         private string _userName;
         private Socket _handler;
         private Thread _userThread;
+
         public Client(Socket socket)
         {
             _handler = socket;
@@ -23,6 +24,9 @@ namespace serverChat
         {
             get { return _userName; }
         }
+
+
+        // поток данных созданных сообщений
         private void listner()
         {
             while (true)
@@ -37,6 +41,7 @@ namespace serverChat
                 catch { Server.EndClient(this); return; }
             }
         }
+        // отключение клиента
         public void End()
         {
             try
@@ -50,6 +55,8 @@ namespace serverChat
             }
             catch (Exception exp) { Console.WriteLine("Error with end: {0}.",exp.Message); }
         }
+
+        // фиксация сообщений
         private void handleCommand(string data)
         {
             if (data.Contains("#setname"))
@@ -69,6 +76,8 @@ namespace serverChat
         {
             Send(ChatController.GetChat());
         }
+
+        // подтверждает/отображает подключение клиента
         public void Send(string command)
         {
             try
