@@ -12,6 +12,7 @@ using System.Net;
 using System.Threading;
 namespace chatClient
 {
+    // класс создания визуализации чата
     public partial class chatForm : Form
     {
         private delegate void printer(string data);
@@ -22,6 +23,8 @@ namespace chatClient
         private Thread _clientThread;
         private const string _serverHost = "localhost";
         private const int _serverPort = 9933;
+
+
         public chatForm()
         {
             InitializeComponent();
@@ -46,6 +49,7 @@ namespace chatClient
                 }
             }
         }
+        // проверка связи с сервером
         private void connect()
         {
             try
@@ -58,6 +62,8 @@ namespace chatClient
             }
             catch { print("Сервер недоступен!"); }
         }
+
+        // очистка чата 
         private void clearChat()
         {
             if (this.InvokeRequired)
@@ -67,6 +73,9 @@ namespace chatClient
             }
             chatBox.Clear();
         }
+
+        // Обнволение чата со связью с другими участниками
+
         private void UpdateChat(string data)
         {
             //#updatechat&userName~data|username~data
@@ -84,6 +93,8 @@ namespace chatClient
                 catch { continue; }
             }
         }
+
+        // отправка данных на сервер
         private void send(string data)
         {
             try
@@ -93,6 +104,8 @@ namespace chatClient
             }
             catch { print("Связь с сервером прервалась...");}
         }
+
+        // вывод сообщений в чат
         private void print(string msg)
         {
             if (this.InvokeRequired)
@@ -106,6 +119,7 @@ namespace chatClient
                 chatBox.AppendText(Environment.NewLine + msg);
         }
 
+        // вход в чат нажатием кнопки
         private void enterChat_Click(object sender, EventArgs e)
         {
             string Name = userName.Text;
@@ -118,10 +132,13 @@ namespace chatClient
             enterChat.Enabled = false;
         }
 
+        // нажатие клавиши отправки в чат
         private void chat_send_Click(object sender, EventArgs e)
         {
             sendMessage();
         }
+
+        // отправка сообщений в чат 
         private void sendMessage()
         {
             try
@@ -133,6 +150,7 @@ namespace chatClient
             }
             catch { MessageBox.Show("Ошибка при отправке сообщения!"); }
         }
+
         private void chatBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
