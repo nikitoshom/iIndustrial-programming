@@ -26,21 +26,7 @@ namespace serverChat
         }
 
 
-        // поток данных созданных сообщений
-        private void listner()
-        {
-            while (true)
-            {
-                try
-                {
-                    byte[] buffer = new byte[1024];
-                    int bytesRec = _handler.Receive(buffer);
-                    string data = Encoding.UTF8.GetString(buffer, 0, bytesRec);
-                    handleCommand(data);
-                }
-                catch { Server.EndClient(this); return; }
-            }
-        }
+       
         // отключение клиента
         public void End()
         {
@@ -72,10 +58,24 @@ namespace serverChat
                 return;
             }
         }
-        public void UpdateChat()
+
+        // поток данных созданных сообщений
+        private void listner()
         {
-            Send(ChatController.GetChat());
+            while (true)
+            {
+                try
+                {
+                    byte[] buffer = new byte[1024];
+                    int bytesRec = _handler.Receive(buffer);
+                    string data = Encoding.UTF8.GetString(buffer, 0, bytesRec);
+                    handleCommand(data);
+                }
+                catch { Server.EndClient(this); return; }
+            }
         }
+
+       
 
         // подтверждает/отображает подключение клиента
         public void Send(string command)
@@ -86,6 +86,11 @@ namespace serverChat
                 if (bytesSent > 0) Console.WriteLine("Success");
             }
             catch (Exception exp) { Console.WriteLine("Error with send command: {0}.", exp.Message); Server.EndClient(this); }
+        }
+
+        public void UpdateChat()
+        {
+            Send(ChatController.GetChat());
         }
     }
 }

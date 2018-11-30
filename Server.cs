@@ -10,27 +10,7 @@ namespace serverChat
     {
         public static List<Client> Clients = new List<Client>();
 
-        //  вход пользователя на сервер
-        public static void NewClient(Socket handle)
-        {
-            try
-            {
-                Client newClient = new Client(handle);
-                Clients.Add(newClient);
-                Console.WriteLine("New client connected: {0}", handle.RemoteEndPoint);
-            }
-            catch (Exception exp) { Console.WriteLine("Error with addNewClient: {0}.",exp.Message); }
-        }
-        public static void EndClient(Client client)
-        {
-            try
-            {
-                client.End();
-                Clients.Remove(client);
-                Console.WriteLine("User {0} has been disconnected.", client.UserName);
-            }
-            catch (Exception exp) { Console.WriteLine("Error with endClient: {0}.",exp.Message); }
-        }
+        
 
         // потвержэение обновления данных чата
         public static void UpdateAllChats()
@@ -45,6 +25,30 @@ namespace serverChat
             }
             catch (Exception exp) { Console.WriteLine("Error with updateAlLChats: {0}.",exp.Message); }
         }
-        
+
+        //  вход пользователя на сервер
+        public static void NewClient(Socket handle)
+        {
+            try
+            {
+                Client newClient = new Client(handle);
+                Clients.Add(newClient);
+                Console.WriteLine("New client connected: {0}", handle.RemoteEndPoint);
+            }
+            catch (Exception exp) { Console.WriteLine("Error with addNewClient: {0}.", exp.Message); }
+        }
+
+        // рассоединение клиента чата
+        public static void EndClient(Client client)
+        {
+            try
+            {
+                client.End();
+                Clients.Remove(client);
+                Console.WriteLine("User {0} has been disconnected.", client.UserName);
+            }
+            catch (Exception exp) { Console.WriteLine("Error with endClient: {0}.", exp.Message); }
+        }
+
     }
 }

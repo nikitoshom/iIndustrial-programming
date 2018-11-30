@@ -23,20 +23,7 @@ namespace serverChat
                 handlerCommands(Console.ReadLine());
         }
 
-        // подтверждение входа пользователя
-    
-        private static void handlerCommands(string cmd)
-        {
-            cmd = cmd.ToLower();
-            if (cmd.Contains("/getusers"))
-            {
-                int countUsers = Server.Clients.Count;
-                for (int i = 0; i < countUsers; i++)
-                {
-                    Console.WriteLine("[{0}]: {1}",i,Server.Clients[i].UserName);
-                }
-            }
-        }
+        
 
         // запуск сервера
         private static void startServer()
@@ -58,6 +45,20 @@ namespace serverChat
                 catch (Exception exp) { Console.WriteLine("Error: {0}",exp.Message); }
             }
 
+        }
+        // подтверждение входа пользователя
+
+        private static void handlerCommands(string cmd)
+        {
+            cmd = cmd.ToLower();
+            if (cmd.Contains("/getusers"))
+            {
+                int countUsers = Server.Clients.Count;
+                for (int i = 0; i < countUsers; i++)
+                {
+                    Console.WriteLine("[{0}]: {1}", i, Server.Clients[i].UserName);
+                }
+            }
         }
     }
 }
